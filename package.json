@@ -1,0 +1,21 @@
+{
+  "name": "cvny",
+  "version": "1.0.0",
+  "description": "將大正藏律部轉為ptk 格式",
+  "main": "gen.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/accelon/cvny.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/accelon/cvny/issues"
+  },
+  "homepage": "https://github.com/accelon/cvny#readme"
+}
