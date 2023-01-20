@@ -33,7 +33,7 @@
 
 
 ## 轉換原理
-詳見 [CBETA TEI 轉換](https://github.com/accelon/ptk/cbetatei.md)
+詳見 [CBETA TEI 轉換](https://github.com/accelon/ptk/blob/main/cbetatei.md)
 
 
 
