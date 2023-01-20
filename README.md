@@ -4,14 +4,37 @@
 ## 步驟
 1) 安裝 [Accelon22](https://github.com/accelon/accelon22)
 2) 下載最新的 bookcase ，解開 T 和 X 。(大正藏、卍續藏。)
-3) 執行 node gen  得到 off/*.off
+3) 執行 node conv-adbdao-v4search ，得到 v4search.tsv
+4) 執行 node gen  得到 off/*.off
+
+## 說明
+* ck 標記依照 SuttaCentral 縮略。
+* 各種律有相當的 ck 可以互連。
+* 四分律第20犍度，細分為 kd20~kd40
+
+## 注意
+
+* pxmlid.txt 記錄所有 CBETA 22,23 冊的 \<p> 的xml:id 屬性，
+  從 bookcase_v074_20221027.zip 產生
+
+## v4search
+
+由於 v4search 的精度只到行，產生off標記時，如果該行有\<p>則直接使用，
+否則看上一行是否以「。」結尾，若否，則取第一個「。」之後的文字為起點（即★所在）。
+
+    T22p0572a03	pj1i  
+    T22n1428_p0572a03：男子亦如是。★若比丘為怨家將至人婦女
+
+    T22p0572a18	pj1j
+    T22n1428_p0572a18：入如毛頭，波羅夷。★方便而不入，偷蘭遮。若
+
+    故 要補上釘文才會正確。
+    T22p0572a18#若	pj1j
+
 
 ## 轉換原理
-
 詳見 [CBETA TEI 轉換](https://github.com/accelon/ptk/cbetatei.md)
 
-## 其他
-`ptk xmltag T/T24/*.xml ` 分析 CBETA TEI 標記，
 
 
 ## 相關資源
