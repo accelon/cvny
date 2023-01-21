@@ -1,4 +1,3 @@
-// convert https://github.com/adbdao/vinaya4/blob/master/v4search.xml
 // to chunkid-1428
 //cbeta 更新時
 //用 emeditor 抽出所有的  <p xml:id="(pT22[^"]+)" , 存成 pxmlid.txt
@@ -6,10 +5,15 @@
 //
 //"T22p0572a18#若":"pj1j【方便罪】",//?22p572a#18,//方便罪 婬戒 
 
+import { existsSync } from 'fs';
 import {nodefs,writeChanged,bsearch,toBase26,readTextContent, readTextLines } from 'ptk/nodebundle.cjs'; //ptk/pali
 import {tocitems,chunkprefix} from './chunkprefix.js'
 
 await nodefs; //export fs to global
+if (!existsSync('v4search.xml')) {
+    console.error('https://github.com/adbdao/vinaya4/blob/master/v4search.xml');
+    throw "need v4search.xml"
+}
 const content=readTextContent('v4search.xml')
 const pxmlid=readTextContent('pxmlid.txt').trim().split(/\r?\n/);
 let prevtaisho='',prevprefix='',prefixcount=0,
