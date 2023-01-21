@@ -10,9 +10,10 @@ const ctx={ele:{},nested:[],fn:''}
 const chunktsv=readTextLines('./v4search.tsv').map(it=>it.split('\t'));
 
 export const offheader={ 
-    T22p0001a01:"^ak#msk【五分律】^bk#msk【五分律】 " , //Mahiśāsaka
+    T22p0001a01:"^ak#msk【五分律別】^bk#msk【五分律】 " , //Mahiśāsaka
     T22p0227a01:"^ak#msg【摩訶僧祇律】^bk#msg【摩訶僧祇律】",  //Mahāsaṁghika 
-    T22p0567a01:"^ak#dg【四分律】^bk#dg【四分律】",  //dharmagupta
+    T22p0567a01:"^ak#dg【經分別】^bk#dg【四分律】",  //dharmagupta
+    T22p0779a01:"\n^ak#dgkd【犍度】",  //dharmagupta
     T23p0001a01:"^ak#db【十誦律】^bk#db【十誦律】",  //sarvāstivāda 
     T23p0627a01:"^ak#msv【根本有部】^bk#msv【根本有部】",//Mūlasarvāstivāda 
 }
