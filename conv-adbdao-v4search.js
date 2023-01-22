@@ -7,12 +7,14 @@
 import { existsSync } from 'fs';
 import {nodefs,writeChanged,bsearch,toBase26,readTextContent } from 'ptk/nodebundle.cjs'; //ptk/pali
 import {tocitems,chunkprefix} from './chunkprefix.js'
-
+const xmlsrc='v4search.xml';
 await nodefs; 
-if (!existsSync('v4search.xml')) {
-    console.error('https://github.com/adbdao/vinaya4/blob/master/v4search.xml');
-    throw "need v4search.xml"
+if (!existsSync(xmlsrc)) {
+    const k=await fetch('https://github.com/adbdao/vinaya4/raw/master/'+xmlsrc);
+    const content=await k.arrayBuffer();
+    writeChanged(xmlsrc,Buffer.from(content,'utf8'),true);
 }
+
 const content=readTextContent('v4search.xml')
 const pxmlid=readTextContent('pxmlid.txt').trim().split(/\r?\n/);
 let prevtaisho='',prevprefix='',prefixcount=0,
