@@ -16,10 +16,13 @@ const nottaishobooks={
 }
 const out=[];
 const tidy=content=>{
+    //去除所有的頁碼
+    //P14 破開 《鈔17,4》
+    content=content.replace(/\n*<br>P\d+\n*/g,'')
     //修複被crlf 破開的 tag ，如
     //<b>《鈔25
     //,24a》</b>
-    content=content.replace(/<b>([^>]+[^>])\n/).replace("<b>$1");
+    replace(/<b>([^>]+[^>])\n/).replace("<b>$1")
     return content;
 }
 const lines=tidy(readTextContent('vinaya5.html')).split(/\r?\n/);
