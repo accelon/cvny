@@ -4,21 +4,34 @@
 //
 //"T22p0572a18#若":"pj1j【方便罪】",//?22p572a#18,//方便罪 婬戒 
 
-import { existsSync } from 'fs';
-import {nodefs,writeChanged,bsearch,toBase26,readTextContent } from 'ptk/nodebundle.cjs'; //ptk/pali
-import {tocitems,chunkprefix} from './chunkprefix.js'
-const xmlsrc='v4search.xml';
+
+import {nodefs,writeChanged,fetchFile,bsearch,toBase26,readTextContent } from 'ptk/nodebundle.cjs'; //ptk/pali
+import {chunkprefix_1428} from './chunkprefix-1428.js'
+import {chunkprefix_1425} from './chunkprefix-1425.js'
+import {chunkprefix_1421} from './chunkprefix-1421.js'
+
+const chunkprefix=Object.assign({},chunkprefix_1421,chunkprefix_1428,chunkprefix_1425);
+
 await nodefs; 
-if (!existsSync(xmlsrc)) {
-    const k=await fetch('https://github.com/adbdao/vinaya4/raw/master/'+xmlsrc);
-    const content=await k.arrayBuffer();
-    writeChanged(xmlsrc,Buffer.from(content,'utf8'),true);
-}
+await fetchFile('https://github.com/adbdao/vinaya4/raw/master/v4search.xml');
 
 const content=readTextContent('v4search.xml')
 const pxmlid=readTextContent('pxmlid.txt').trim().split(/\r?\n/);
 let prevtaisho='',prevprefix='',prefixcount=0,
 toctext='';//子標題
+export const tocitems={
+    ' 四分律':'',
+    ' 五分律':'',
+    ' 四波羅夷':'-',
+    ' 三十捨墮法':'-',
+    ' 十三僧伽婆尸沙':'-',
+    ' 二十犍度':'-',
+    ' 九十波逸提':'-',
+    ' 四波羅提提舍尼法':'-',
+    ' 百眾學法':'-',
+    ' 三十尼薩耆波逸提':'-',
+    ' 一百七十八單提法':'-',
+}
 
 const conv=()=>{
     let fulltaisho='';
@@ -39,6 +52,7 @@ const conv=()=>{
             fulltaisho=taisho;//無字元，只定位到lb 開頭，要補釘文
         }
 
+
         if (!~text.indexOf(' ') && !~text.indexOf('-')) {
             toctext=text; //標題
             if (text.endsWith('戒')||text.endsWith('犍度'))text+='-'; //有上層，但adbdao 沒寫
@@ -49,6 +63,7 @@ const conv=()=>{
             }
             text=text.replace(' '+toctext,'-');   
         }
+
         if (prevtaisho==taisho) {
             text=text.replace(/\-+$/,'-');
             out[out.length-1][2]= text+out[out.length-1][2];
@@ -67,6 +82,10 @@ const conv=()=>{
         (prevprefix+(prefixcount?toBase26(prefixcount-1):''))
         :prevprefix+(prefixcount?prefixcount:'')
         
+        if (taisho=='T22p0698a07') {
+            console.log(at,fulltaisho,tag,text)
+        }
+
         out.push([fulltaisho,tag,text])
         prefixcount++;
     })

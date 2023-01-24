@@ -1,14 +1,10 @@
 /* 取出 律藏會集 五種主題 的連結*/
-import { existsSync } from 'fs';
-import {fromObj,nodefs,writeChanged,bsearch,toBase26,alphabetically, readTextContent } from 'ptk/nodebundle.cjs'; //ptk/pali
-import {tocitems,chunkprefix} from './chunkprefix.js'
-
+import {fromObj,nodefs,writeChanged,fetchFile,toBase26,alphabetically, readTextContent } from 'ptk/nodebundle.cjs'; //ptk/pali
 //律藏會集_5種主題.html rename to vinaya5.html
 await nodefs; 
-if (!existsSync('vinaya5.html')) {
-    console.error('https://github.com/adbdao/VinayaBooksAsJsHtml/blob/master/');
-    throw "vinaya5.html"
-}
+
+await fetchFile('https://github.com/adbdao/VinayaBooksAsJsHtml/raw/master/律藏會集_5種主題.html','vinaya5.html')
+
 const bk_link={}, toc_link={}, headers=[];
 const nottaishobooks={
     '南傳':true,
@@ -22,7 +18,7 @@ const tidy=content=>{
     //修複被crlf 破開的 tag ，如
     //<b>《鈔25
     //,24a》</b>
-    replace(/<b>([^>]+[^>])\n/).replace("<b>$1")
+    .replace(/<b>([^>]+[^>])\n/).replace("<b>$1")
     return content;
 }
 const lines=tidy(readTextContent('vinaya5.html')).split(/\r?\n/);
@@ -48,7 +44,7 @@ lines.forEach(line=>{
             }
             // console.log(bkname,link)
             bk_link[bkname].push(link);
-            out.push(headers.join('/')+'||\t'+bkname+link+t)
+            out.push(headers.map(it=>it.slice(0,3)).join('/')+'||\t'+bkname+link+t)
             totalcount++;
         } else { //鈔
             if (bk_link[bkname]) { //已知的書，但格式不對

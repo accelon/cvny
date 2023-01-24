@@ -2,7 +2,11 @@ import {glob,meta_cbeta,nodefs,writeChanged,parseXMLAttribute,peelXML,readTextCo
 import {  existsSync } from 'fs';
 import Path from 'path'
 await nodefs; //export fs to global
-const files=readTextLines('t1428.lst').filter(it=>!!it); //1428四分律，輸入文件名
+//t1428 四分
+//t1421 五分
+//t1425 摩訶僧祇律
+const lst=process.argv[2]||'t1425.lst';
+const files=readTextLines(lst).filter(it=>!!it); //1428四分律，輸入文件名
 const rootdir='T/';
 const ctx={ele:{},nested:[],fn:''}
 // import {t1428} from './chunkid-1428.js'
