@@ -7,10 +7,9 @@
 
 import {nodefs,writeChanged,fetchFile,bsearch,toBase26,readTextContent } from 'ptk/nodebundle.cjs'; //ptk/pali
 import {chunkprefix_1428} from './chunkprefix-1428.js'
-import {chunkprefix_1425} from './chunkprefix-1425.js'
 import {chunkprefix_1421} from './chunkprefix-1421.js'
 
-const chunkprefix=Object.assign({},chunkprefix_1421,chunkprefix_1428,chunkprefix_1425);
+const chunkprefix=Object.assign({},chunkprefix_1421,chunkprefix_1428);
 
 await nodefs; 
 await fetchFile('https://github.com/adbdao/vinaya4/raw/master/v4search.xml');

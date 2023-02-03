@@ -1,6 +1,9 @@
-import {glob,meta_cbeta,nodefs,writeChanged,parseXMLAttribute,peelXML,readTextContent, readTextLines } from 'ptk/nodebundle.cjs'; //ptk/pali
+import {ptk_version,glob,meta_cbeta,nodefs,writeChanged,parseXMLAttribute,peelXML,readTextContent, readTextLines } from 'ptk/nodebundle.cjs'; //ptk/pali
 import {  existsSync } from 'fs';
-import Path from 'path'
+
+if (!ptk_version || ptk_version<20230125) {
+    throw "need ptk_version > 20230125"
+}
 await nodefs; //export fs to global
 //t1428 四分
 //t1421 五分
@@ -11,21 +14,24 @@ const rootdir='T/';
 const ctx={ele:{},nested:[],fn:''}
 // import {t1428} from './chunkid-1428.js'
 
-const chunktsv=readTextLines('./v4search.tsv').map(it=>it.split('\t'));
+//四分律及五分律 應手工校正，並更名為 chunk1421.tsv , chunk1428.tsv
+
+//摩訶僧祇律, 手工編輯，結構同 v4search , 
+//[ cb_lb , chunk_id , capton]v4search.concat(
+const chunktsv=readTextLines(['./v4search.tsv','./chunk1425.tsv'],'tsv');
+//一次過讀入多個tsv, 並合併成一個陣列
 
 export const offheader={ 
-    T22p0001a01:"^ak#msk【五分律別】^bk#msk【五分律】 " , //Mahiśāsaka
-    T22p0227a01:"^ak#msg【摩訶僧祇律】^bk#msg【摩訶僧祇律】",  //Mahāsaṁghika 
-    T22p0567a01:"^ak#dg【經分別】^bk#dg【四分律】",  //dharmagupta
-    T22p0779a01:"\n^ak#dgkd【犍度】",  //dharmagupta
-    T23p0001a01:"^ak#db【十誦律】^bk#db【十誦律】",  //sarvāstivāda 
-    T23p0627a01:"^ak#msv【根本有部】^bk#msv【根本有部】",//Mūlasarvāstivāda 
+    T22p0001a01:"^ak#msk【五分】^bk#msk【五分律】 " , //Mahiśāsaka
+    T22p0227a01:"^ak#msg【僧祇】^bk#msg【摩訶僧祇律】",  //Mahāsaṁghika 
+    T22p0567a01:"^ak#dg【四分經分別】^bk#dg【四分律】",  //dharmagupta
+    T22p0779a01:"\n^ak#dgkd【四分犍度】",  //dharmagupta
+    T23p0001a01:"^ak#db【十誦】^bk#db【十誦律】",  //sarvāstivāda 
+    T23p0627a01:"^ak#msv【根有】^bk#msv【根本有部】",//Mūlasarvāstivāda 
 }
 for (let key in offheader) {
-    chunktsv.push([key,offheader[key]])
+    chunktsv.push([key,offheader[key]]);
 }
-
-
 const conv=(fn)=>{
     ctx.fn=fn;
     process.stdout.write('\r'+fn+'   ');
