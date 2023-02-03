@@ -1,24 +1,29 @@
 # cvny
 將大正藏律部轉為 accelon22 格式
 
-## 步驟
+## 步驟 
+除了第一步之外，其餘皆在目前工作目錄，即cvny下執行。
 1) 安裝 [Accelon22](https://github.com/accelon/accelon22)。
-    clone 之後執行 install-dev 安裝開發環境，如果要修改介面，執行 node dev ，會開一個背景服務器偵測 svelte 檔案的改動。
+    clone 之後執行 install-dev 安裝開發環境，如果要修改介面，執行 node dev ，
+    會開一個背景服務器偵測 svelte 檔案的改動。
+    在任意目錄，確保執行 ptk 成果。
 2) 下載最新的 bookcase ，解開 T 和 X 。(大正藏、卍續藏。)
+    如果有安裝 CBReader ，建議連結方式：
+    mklink/j T \CBReader\Bookcase\CBETA\XML\T
+
 3) 執行 node conv-adbdao-v4search ，得到 v4search.tsv (會自動下載 v4search.xml )
 4) 產生 off/*.off
 
     node gen t1421.lst 
     node gen t1428.lst 
     node gen t1425.lst 
-5) 執行 ptk js 得到 cvny/*.js
-6) 確保 accelon22/dist/config.js 載入 cvny，執行 accelon22。
-7) 連結資料庫到accelon2
 
-    cd accelon22\dist
-    mklink/j  cvny ..\..\cvny\cvny 
+5) 執行 ptk js 得到 cvny/*.js，資料改動必須重新執行。
 
-8) 開啟 accelon22 
+6) 連結資料庫到accelon2 (注意不可以打 / ，要打 \ )，只須執行一次。
+    mklink/j  ..\accelon22\dist\cvny ..\..\cvny\cvny 
+
+7) 確保 accelon22/dist/config.js 指定載入 cvny，執行 accelon22\dist\index.html 。
 
 ## 說明
 * ck 標記依照 SuttaCentral 縮略。
