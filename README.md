@@ -4,8 +4,14 @@
 ## 步驟
 1) 安裝 [Accelon22](https://github.com/accelon/accelon22)
 2) 下載最新的 bookcase ，解開 T 和 X 。(大正藏、卍續藏。)
-3) 執行 node conv-adbdao-v4search ，得到 v4search.tsv
-4) 執行 node gen  得到 off/*.off
+3) 執行 node conv-adbdao-v4search ，得到 v4search.tsv (會自動下載 v4search.xml )
+4) 產生 off/*.off
+    node gen t1421.lst 
+    node gen t1428.lst 
+    node gen t1425.lst 
+    
+5) 執行 ptk js 得到 cvny/*.js
+6) 確保 accelon22/dist/config.js 載入 cvny，執行 accelon22。
 
 ## 說明
 * ck 標記依照 SuttaCentral 縮略。

@@ -1,8 +1,8 @@
 import {ptk_version,glob,meta_cbeta,nodefs,writeChanged,parseXMLAttribute,peelXML,readTextContent, readTextLines } from 'ptk/nodebundle.cjs'; //ptk/pali
 import {  existsSync } from 'fs';
 
-if (!ptk_version || ptk_version<20230125) {
-    throw "need ptk_version > 20230125"
+if (!ptk_version || ptk_version<20230202) {
+    throw "need ptk_version > 20230202"
 }
 await nodefs; //export fs to global
 //t1428 四分
@@ -10,6 +10,9 @@ await nodefs; //export fs to global
 //t1425 摩訶僧祇律
 const lst=process.argv[2]||'t1425.lst';
 const files=readTextLines(lst).filter(it=>!!it); //1428四分律，輸入文件名
+if (!files.length) {
+	console.log("empty files, need CBETA T folder");
+}
 const rootdir='T/';
 const ctx={ele:{},nested:[],fn:''}
 // import {t1428} from './chunkid-1428.js'
