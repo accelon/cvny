@@ -21,7 +21,9 @@ const ctx={ele:{},nested:[],fn:''}
 
 //摩訶僧祇律, 手工編輯，結構同 v4search , 
 //[ cb_lb , chunk_id , capton]v4search.concat(
-const chunktsv=readTextLines(['./v4search.tsv','./chunk1425.tsv'],'tsv');
+const chunktsv=readTextLines(['./v4search.tsv','./chunk1425.tsv'
+,'./chunk1442.tsv','./chunk1443.tsv' //根有
+],'tsv');
 //一次過讀入多個tsv, 並合併成一個陣列
 
 export const offheader={ 
